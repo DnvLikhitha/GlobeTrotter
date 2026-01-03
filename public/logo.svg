@@ -1,42 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 130">
   <defs>
     <style>
-      .cls-1 { fill: #1e293b; }
-      .cls-2 { fill: #2d5533; font-family: Georgia, 'Times New Roman', serif; font-size: 48px; font-weight: bold; }
+      .logo-fill { fill: #334155; }
+      .logo-text { fill: #334155; font-family: Georgia, serif; font-size: 24px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
   
-  <!-- Crescent Moon Shape -->
-  <path class="cls-1" d="M 380,150 C 380,95 345,50 300,50 C 290,50 280,52 270,56 C 285,70 295,90 295,115 C 295,165 260,205 215,210 C 195,212 176,208 160,198 C 160,250 200,295 250,295 C 255,295 260,294 265,293 L 265,305 L 120,305 L 120,310 L 385,310 L 385,305 L 270,305 C 330,295 375,240 380,175 Z"/>
+  <!-- Base line top -->
+  <line x1="20" y1="95" x2="360" y2="95" stroke="#334155" stroke-width="2"/>
   
-  <!-- Mountain Peaks -->
-  <g class="cls-1">
-    <path d="M 260,240 L 285,185 L 310,240 Z"/>
-    <path d="M 290,240 L 310,205 L 330,240 Z"/>
-    <path d="M 320,240 L 338,210 L 356,240 Z"/>
-    <!-- Snow caps -->
-    <path d="M 295,210 L 300,200 L 305,210 Z M 315,220 L 320,210 L 325,220 Z M 335,225 L 340,215 L 345,225 Z" fill="#ffffff" opacity="0.8"/>
+  <!-- Crescent Moon -->
+  <path class="logo-fill" d="M 270,10 Q 300,15 320,38 Q 335,58 332,80 Q 328,95 310,98 L 245,98 Q 262,90 268,75 Q 273,58 268,42 Q 263,26 248,18 Q 258,12 270,10 Z"/>
+  
+  <!-- Mountains with snow -->
+  <g class="logo-fill">
+    <!-- Left mountain -->
+    <path d="M 190,75 L 210,35 L 230,75 Z"/>
+    <path d="M 207,45 L 210,37 L 213,45 Z" fill="#ffffff"/>
+    
+    <!-- Center mountain -->
+    <path d="M 215,78 L 240,25 L 265,78 Z"/>
+    <path d="M 236,38 L 240,28 L 244,38 Z" fill="#ffffff"/>
+    <path d="M 238,45 L 242,35 L 246,45 Z" fill="#ffffff"/>
+    
+    <!-- Right mountain -->
+    <path d="M 250,82 L 272,40 L 294,82 Z"/>
+    <path d="M 269,50 L 272,42 L 275,50 Z" fill="#ffffff"/>
+    <path d="M 271,57 L 274,49 L 277,57 Z" fill="#ffffff"/>
   </g>
   
-  <!-- Hiker with Backpack and Stick -->
-  <g class="cls-1">
+  <!-- Hiker with backpack -->
+  <g class="logo-fill">
     <!-- Head -->
-    <circle cx="178" cy="168" r="8"/>
-    <!-- Backpack -->
-    <path d="M 172,175 L 168,185 L 168,200 L 175,202 L 182,200 L 182,185 L 178,175 Z"/>
-    <!-- Body leaning forward -->
-    <path d="M 178,175 L 172,210 L 170,230 L 175,245 L 180,260 L 182,275 L 185,290 L 188,305 L 195,305 L 192,285 L 188,265 L 185,245 L 183,225 L 185,210 Z"/>
+    <circle cx="95" cy="52" r="6"/>
+    
+    <!-- Backpack/Body -->
+    <path d="M 92,58 L 88,62 L 87,72 L 88,80 L 92,82 L 98,82 L 102,80 L 103,72 L 102,62 L 98,58 Z"/>
+    <circle cx="93" cy="68" r="1.5" fill="#ffffff"/>
+    
+    <!-- Torso bent forward -->
+    <path d="M 95,58 L 90,72 L 86,85 L 84,95" stroke="#334155" stroke-width="3" fill="none"/>
+    
     <!-- Back leg -->
-    <path d="M 175,245 L 173,260 L 170,280 L 168,300 L 165,305 L 172,305 L 175,295 L 178,275 L 180,260 Z"/>
-    <!-- Climbing stick -->
-    <path d="M 180,180 L 205,215 L 220,235 L 222,240 M 218,232 L 220,228 L 224,230"/>
-    <!-- Front arm holding stick -->
-    <path d="M 178,180 L 185,195 L 195,210 L 205,220"/>
+    <path d="M 86,78 L 83,88 L 81,95" stroke="#334155" stroke-width="2.5" fill="none"/>
+    
+    <!-- Front leg stepping -->
+    <path d="M 88,75 L 93,83 L 97,90" stroke="#334155" stroke-width="2.5" fill="none"/>
+    
+    <!-- Trekking pole -->
+    <line x1="100" y1="60" x2="128" y2="88" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="126" y1="85" x2="130" y2="85" stroke="#334155" stroke-width="2"/>
+    
+    <!-- Arm extended -->
+    <path d="M 97,60 L 105,70 L 118,82" stroke="#334155" stroke-width="2.5" fill="none" stroke-linecap="round"/>
   </g>
   
-  <!-- Text: GlobeTrotter -->
-  <text x="150" y="345" class="cls-2">GlobeTrotter</text>
+  <!-- Ground platform -->
+  <rect x="20" y="93" width="340" height="2.5" class="logo-fill"/>
   
-  <!-- Underline -->
-  <line x1="115" y1="350" x2="385" y2="350" stroke="#2d5533" stroke-width="3"/>
+  <!-- Text -->
+  <text x="140" y="118" class="logo-text">GlobeTrotter</text>
+  
+  <!-- Bottom line -->
+  <line x1="20" y1="124" x2="360" y2="124" stroke="#334155" stroke-width="2"/>
 </svg>

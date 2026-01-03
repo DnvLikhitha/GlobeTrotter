@@ -76,7 +76,7 @@ const Login = () => {
               <img 
                 src="/logo.svg" 
                 alt="GlobeTrotter" 
-                className="h-32 w-auto"
+                className="h-20 w-auto"
               />
             </div>
             <p className="text-gray-600 text-lg">
