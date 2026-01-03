@@ -36,16 +36,21 @@ export const AppProvider = ({ children }) => {
     } else {
       // Initialize with sample cities
       const sampleCities = [
-        { id: 1, name: 'Paris', country: 'France', costIndex: 4, popularity: 95, description: 'The City of Light', image: 'https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 2, name: 'Tokyo', country: 'Japan', costIndex: 5, popularity: 90, description: 'Modern meets traditional', image: 'https://images.pexels.com/photos/2614818/pexels-photo-2614818.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 3, name: 'New York', country: 'USA', costIndex: 5, popularity: 92, description: 'The city that never sleeps', image: 'https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 4, name: 'Barcelona', country: 'Spain', costIndex: 3, popularity: 88, description: 'Gaudi\'s masterpiece city', image: 'https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 5, name: 'Bangkok', country: 'Thailand', costIndex: 2, popularity: 85, description: 'Street food paradise', image: 'https://images.pexels.com/photos/1031659/pexels-photo-1031659.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 6, name: 'London', country: 'UK', costIndex: 5, popularity: 93, description: 'Historic and modern blend', image: 'https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 7, name: 'Rome', country: 'Italy', costIndex: 4, popularity: 91, description: 'The Eternal City', image: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 8, name: 'Dubai', country: 'UAE', costIndex: 4, popularity: 87, description: 'Luxury and innovation', image: 'https://images.pexels.com/photos/1470502/pexels-photo-1470502.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 9, name: 'Bali', country: 'Indonesia', costIndex: 2, popularity: 89, description: 'Tropical paradise', image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=800' },
-        { id: 10, name: 'Sydney', country: 'Australia', costIndex: 4, popularity: 86, description: 'Harbor city beauty', image: 'https://images.pexels.com/photos/995765/pexels-photo-995765.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 1, name: 'Paris', country: 'France', costIndex: 4, popularity: 95, description: 'The City of Light', image: 'https://source.unsplash.com/800x600/?paris,eiffel-tower' },
+        { id: 2, name: 'Tokyo', country: 'Japan', costIndex: 5, popularity: 90, description: 'Modern meets traditional', image: 'https://source.unsplash.com/800x600/?tokyo,japan' },
+        { id: 3, name: 'New York', country: 'USA', costIndex: 5, popularity: 92, description: 'The city that never sleeps', image: 'https://source.unsplash.com/800x600/?new-york,manhattan' },
+        { id: 4, name: 'Barcelona', country: 'Spain', costIndex: 3, popularity: 88, description: 'Gaudi\'s masterpiece city', image: 'https://source.unsplash.com/800x600/?barcelona,sagrada-familia' },
+        { id: 5, name: 'Bangkok', country: 'Thailand', costIndex: 2, popularity: 85, description: 'Street food paradise', image: 'https://source.unsplash.com/800x600/?bangkok,thailand' },
+        { id: 6, name: 'London', country: 'UK', costIndex: 5, popularity: 93, description: 'Historic and modern blend', image: 'https://source.unsplash.com/800x600/?london,big-ben' },
+        { id: 7, name: 'Rome', country: 'Italy', costIndex: 4, popularity: 91, description: 'The Eternal City', image: 'https://source.unsplash.com/800x600/?rome,colosseum' },
+        { id: 8, name: 'Dubai', country: 'UAE', costIndex: 4, popularity: 87, description: 'Luxury and innovation', image: 'https://source.unsplash.com/800x600/?dubai,burj-khalifa' },
+        { id: 9, name: 'Bali', country: 'Indonesia', costIndex: 2, popularity: 89, description: 'Tropical paradise', image: 'https://source.unsplash.com/800x600/?bali,beach' },
+        { id: 10, name: 'Sydney', country: 'Australia', costIndex: 4, popularity: 86, description: 'Harbor city beauty', image: 'https://source.unsplash.com/800x600/?sydney,opera-house' },
+        { id: 11, name: 'Istanbul', country: 'Turkey', costIndex: 2, popularity: 84, description: 'Where East meets West', image: 'https://source.unsplash.com/800x600/?istanbul,turkey' },
+        { id: 12, name: 'Amsterdam', country: 'Netherlands', costIndex: 4, popularity: 87, description: 'City of canals', image: 'https://source.unsplash.com/800x600/?amsterdam,canal' },
+        { id: 13, name: 'Singapore', country: 'Singapore', costIndex: 5, popularity: 88, description: 'The Garden City', image: 'https://source.unsplash.com/800x600/?singapore,marina-bay' },
+        { id: 14, name: 'Prague', country: 'Czech Republic', costIndex: 3, popularity: 86, description: 'City of a Hundred Spires', image: 'https://source.unsplash.com/800x600/?prague,castle' },
+        { id: 15, name: 'Rio de Janeiro', country: 'Brazil', costIndex: 3, popularity: 85, description: 'Marvelous city', image: 'https://source.unsplash.com/800x600/?rio-de-janeiro,brazil' },
       ];
       setCities(sampleCities);
       localStorage.setItem('cities', JSON.stringify(sampleCities));
@@ -92,6 +97,97 @@ export const AppProvider = ({ children }) => {
     };
     setUser(mockUser);
     setIsAuthenticated(true);
+    
+    // Initialize with sample trips for the user if none exist
+    if (trips.length === 0) {
+      const sampleTrips = [
+        {
+          id: 1,
+          userId: 1,
+          name: 'European Adventure',
+          startDate: '2026-03-15',
+          endDate: '2026-03-25',
+          description: 'Exploring the historic cities of Europe',
+          coverPhoto: 'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=800',
+          stops: [
+            {
+              id: 1,
+              cityId: 1,
+              cityName: 'Paris',
+              date: '2026-03-15',
+              activities: [
+                { id: 1, name: 'Eiffel Tower Visit', cost: 30, completed: false },
+                { id: 2, name: 'Louvre Museum', cost: 20, completed: false }
+              ]
+            },
+            {
+              id: 2,
+              cityId: 6,
+              cityName: 'London',
+              date: '2026-03-20',
+              activities: [
+                { id: 6, name: 'British Museum', cost: 0, completed: false }
+              ]
+            }
+          ]
+        },
+        {
+          id: 2,
+          userId: 1,
+          name: 'Asian Discovery',
+          startDate: '2026-05-10',
+          endDate: '2026-05-20',
+          description: 'Journey through Asia\'s most vibrant cities',
+          coverPhoto: 'https://images.pexels.com/photos/1007426/pexels-photo-1007426.jpeg?auto=compress&cs=tinysrgb&w=800',
+          stops: [
+            {
+              id: 1,
+              cityId: 2,
+              cityName: 'Tokyo',
+              date: '2026-05-10',
+              activities: [
+                { id: 4, name: 'Shibuya Crossing', cost: 0, completed: false },
+                { id: 5, name: 'Sushi Making Class', cost: 80, completed: false }
+              ]
+            },
+            {
+              id: 2,
+              cityId: 5,
+              cityName: 'Bangkok',
+              date: '2026-05-15',
+              activities: [
+                { id: 9, name: 'Street Food Tour', cost: 40, completed: false },
+                { id: 10, name: 'Grand Palace', cost: 15, completed: false }
+              ]
+            }
+          ]
+        },
+        {
+          id: 3,
+          userId: 1,
+          name: 'NYC Weekend Getaway',
+          startDate: '2026-02-20',
+          endDate: '2026-02-23',
+          description: 'Quick trip to the Big Apple',
+          coverPhoto: 'https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=800',
+          stops: [
+            {
+              id: 1,
+              cityId: 3,
+              cityName: 'New York',
+              date: '2026-02-20',
+              activities: [
+                { id: 6, name: 'Statue of Liberty', cost: 25, completed: true },
+                { id: 7, name: 'Broadway Show', cost: 150, completed: true }
+              ]
+            }
+          ]
+        }
+      ];
+      setTrips(sampleTrips);
+      localStorage.setItem('trips', JSON.stringify(sampleTrips));
+    }
+    
     return mockUser;
   };
 
