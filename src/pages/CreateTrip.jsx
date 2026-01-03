@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, Image, ArrowLeft } from 'lucide-react';
+import { Calendar, Image, ArrowLeft, Sparkles, Loader2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import Layout from '../components/Layout';
+import { generateItinerary, predictBudget } from '../services/aiService';
 
 const CreateTrip = () => {
   const [formData, setFormData] = useState({
@@ -11,8 +12,12 @@ const CreateTrip = () => {
     endDate: '',
     description: '',
     coverPhoto: '',
+    travelStyle: 'moderate',
+    preferences: []
   });
   const [errors, setErrors] = useState({});
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [aiSuggestions, setAiSuggestions] = useState(null);
   const { addTrip } = useApp();
   const navigate = useNavigate();
 
@@ -51,8 +56,30 @@ const CreateTrip = () => {
       return;
     }
 
-    const newTrip = addTrip(formData);
+    const newTrip = addTrip({ ...formData, aiGenerated: aiSuggestions });
     navigate(`/trips/${newTrip.id}/edit`);
+  };
+
+  const handleAIGenerate = async () => {
+    if (!formData.name || !formData.startDate || !formData.endDate) {
+      setErrors({ general: 'Please fill in trip name and dates first' });
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const suggestions = await generateItinerary(formData);
+      const budget = await predictBudget('Europe', 
+        Math.ceil((new Date(formData.endDate) - new Date(formData.startDate)) / (1000 * 60 * 60 * 24)),
+        formData.travelStyle
+      );
+      
+      setAiSuggestions({ ...suggestions, budgetPrediction: budget });
+    } catch (error) {
+      console.error('AI generation failed:', error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -172,6 +199,104 @@ const CreateTrip = () => {
                 </div>
               )}
             </div>
+
+            {/* AI Travel Style Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Travel Style
+              </label>
+              <select
+                name="travelStyle"
+                value={formData.travelStyle}
+                onChange={handleChange}
+                className="input-field"
+              >
+                <option value="budget">Budget - Save money, hostel stays</option>
+                <option value="moderate">Moderate - Balanced comfort and cost</option>
+                <option value="luxury">Luxury - Premium experiences</option>
+              </select>
+            </div>
+
+            {/* AI Generate Button */}
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl border-2 border-blue-200">
+              <div className="flex items-start gap-4">
+                <Sparkles className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 mb-2">✨ AI-Powered Itinerary Generator</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Let our AI create a personalized itinerary with recommended destinations, 
+                    activities, and budget estimates based on your preferences!
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleAIGenerate}
+                    disabled={isGenerating}
+                    className="btn-primary flex items-center gap-2 disabled:opacity-50"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Generating Magic...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-5 h-5" />
+                        Generate AI Itinerary
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Suggestions Display */}
+            {aiSuggestions && (
+              <div className="bg-white border-2 border-green-200 rounded-xl p-6 space-y-4 animate-slide-down">
+                <div className="flex items-center gap-2 text-green-600 mb-4">
+                  <Sparkles className="w-5 h-5" />
+                  <h3 className="font-semibold">AI-Generated Suggestions</h3>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-lg">
+                    <p className="text-sm font-medium text-gray-700 mb-1">Estimated Budget</p>
+                    <p className="text-2xl font-bold text-blue-600">
+                      ${aiSuggestions.budgetPrediction?.total || aiSuggestions.estimatedBudget}
+                    </p>
+                  </div>
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg">
+                    <p className="text-sm font-medium text-gray-700 mb-1">Destinations</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {aiSuggestions.stops?.length || 0} Cities
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-2">Recommended Stops:</p>
+                  <div className="space-y-2">
+                    {aiSuggestions.stops?.slice(0, 3).map((stop, index) => (
+                      <div key={index} className="flex items-center gap-2 text-sm">
+                        <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-semibold">
+                          {index + 1}
+                        </span>
+                        <span className="font-medium">{stop.city}, {stop.country}</span>
+                        <span className="text-gray-500">• {stop.activities?.length || 0} activities</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                  <p className="text-sm font-medium text-yellow-800 mb-1">💡 Pro Tips</p>
+                  <ul className="text-xs text-yellow-700 space-y-1">
+                    {aiSuggestions.recommendations?.slice(0, 2).map((tip, i) => (
+                      <li key={i}>• {tip}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
 
             <div className="flex gap-4 pt-4">
               <button

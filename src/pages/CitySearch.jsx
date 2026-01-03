@@ -73,16 +73,16 @@ const CitySearch = () => {
             </div>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <span className="text-sm text-gray-600">Sort by:</span>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="text-sm font-semibold text-gray-900">Sort by:</span>
             {['popularity', 'cost', 'name'].map(option => (
               <button
                 key={option}
                 onClick={() => setSortBy(option)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                   sortBy === option
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-gray-200'
                 }`}
               >
                 {option.charAt(0).toUpperCase() + option.slice(1)}

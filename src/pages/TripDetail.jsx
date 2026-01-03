@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Calendar, MapPin, DollarSign, Clock, Share2, Edit3, ArrowLeft, Download } from 'lucide-react';
+import { Calendar, MapPin, DollarSign, Clock, Share2, Edit3, ArrowLeft, Download, Cloud, CloudRain, CloudSnow, Sun, Wind, Leaf } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import Layout from '../components/Layout';
 import { format, differenceInDays } from 'date-fns';
+import { getWeatherForecast, convertCurrency } from '../services/apiIntegrations';
+import { calculateCarbonFootprint } from '../services/aiService';
 
 const TripDetail = () => {
   const { tripId } = useParams();
@@ -11,15 +13,59 @@ const TripDetail = () => {
   const { getTripById, cities } = useApp();
   const [trip, setTrip] = useState(null);
   const [viewMode, setViewMode] = useState('timeline'); // timeline or calendar
+  const [weather, setWeather] = useState(null);
+  const [currency, setCurrency] = useState('USD');
+  const [convertedBudget, setConvertedBudget] = useState(null);
+  const [carbonData, setCarbonData] = useState(null);
+  const [loadingWeather, setLoadingWeather] = useState(false);
 
   useEffect(() => {
     const foundTrip = getTripById(tripId);
     if (foundTrip) {
       setTrip(foundTrip);
+      loadWeatherData(foundTrip);
+      calculateCarbon(foundTrip);
     } else {
       navigate('/trips');
     }
   }, [tripId]);
+
+  const loadWeatherData = async (tripData) => {
+    if (!tripData.stops || tripData.stops.length === 0) return;
+    
+    setLoadingWeather(true);
+    try {
+      const firstStop = tripData.stops[0];
+      const forecast = await getWeatherForecast(
+        firstStop.city, 
+        tripData.startDate, 
+        tripData.endDate
+      );
+      setWeather(forecast);
+    } catch (error) {
+      console.error('Weather fetch failed:', error);
+    } finally {
+      setLoadingWeather(false);
+    }
+  };
+
+  const calculateCarbon = (tripData) => {
+    const distance = (tripData.stops?.length || 1) * 500; // Mock distance calculation
+    const carbon = calculateCarbonFootprint({
+      transportation: 'flight',
+      distance
+    });
+    setCarbonData(carbon);
+  };
+
+  const handleCurrencyChange = async (newCurrency) => {
+    setCurrency(newCurrency);
+    if (trip) {
+      const total = getTotalCost();
+      const converted = await convertCurrency(total, 'USD', newCurrency);
+      setConvertedBudget(converted);
+    }
+  };
 
   const getCityById = (cityId) => {
     return cities.find(c => c.id === cityId);
