@@ -28,6 +28,7 @@ body {
 
 .dark .btn-primary {
   background-color: #14b8a6;
+  color: white;
 }
 
 .dark .btn-primary:hover {
@@ -88,6 +89,7 @@ body {
 
 .dark .input-field:focus {
   border-color: #14b8a6;
+  color: #f9fafb;
 }
 
 .dark .input-field::placeholder {

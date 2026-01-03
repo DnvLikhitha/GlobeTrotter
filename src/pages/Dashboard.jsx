@@ -46,7 +46,7 @@ const Dashboard = () => {
         </video>
         
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent dark:from-gray-900/80 dark:via-gray-800/60"></div>
         
         {/* Hero Content */}
         <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
@@ -59,8 +59,8 @@ const Dashboard = () => {
             </p>
             
             {/* Search Bar */}
-            <div className="bg-white/95 backdrop-blur-md rounded-full shadow-2xl p-2 flex items-center gap-3 max-w-lg">
-              <Search className="w-5 h-5 text-gray-400 ml-4" />
+            <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-full shadow-2xl p-2 flex items-center gap-3 max-w-lg">
+              <Search className="w-5 h-5 text-gray-400 dark:text-gray-500 ml-4" />
               <input
                 type="text"
                 placeholder="Where do you want to go?"

@@ -110,7 +110,7 @@ const SharedTrip = () => {
                 alt={trip.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent dark:from-gray-900/80"></div>
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                 <div className="mb-3">
                   <span className="bg-teal-500/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm">

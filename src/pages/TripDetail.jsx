@@ -132,7 +132,7 @@ const TripDetail = () => {
                 alt={trip.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent dark:from-gray-900/80"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">{trip.name}</h1>
                 <div className="flex flex-wrap gap-4 text-sm">
