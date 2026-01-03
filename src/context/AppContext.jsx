@@ -36,16 +36,16 @@ export const AppProvider = ({ children }) => {
     } else {
       // Initialize with sample cities
       const sampleCities = [
-        { id: 1, name: 'Paris', country: 'France', costIndex: 4, popularity: 95, description: 'The City of Light', image: 'https://picsum.photos/seed/paris/800/600' },
-        { id: 2, name: 'Tokyo', country: 'Japan', costIndex: 5, popularity: 90, description: 'Modern meets traditional', image: 'https://picsum.photos/seed/tokyo/800/600' },
-        { id: 3, name: 'New York', country: 'USA', costIndex: 5, popularity: 92, description: 'The city that never sleeps', image: 'https://picsum.photos/seed/newyork/800/600' },
-        { id: 4, name: 'Barcelona', country: 'Spain', costIndex: 3, popularity: 88, description: 'Gaudi\'s masterpiece city', image: 'https://picsum.photos/seed/barcelona/800/600' },
-        { id: 5, name: 'Bangkok', country: 'Thailand', costIndex: 2, popularity: 85, description: 'Street food paradise', image: 'https://picsum.photos/seed/bangkok/800/600' },
-        { id: 6, name: 'London', country: 'UK', costIndex: 5, popularity: 93, description: 'Historic and modern blend', image: 'https://picsum.photos/seed/london/800/600' },
-        { id: 7, name: 'Rome', country: 'Italy', costIndex: 4, popularity: 91, description: 'The Eternal City', image: 'https://picsum.photos/seed/rome/800/600' },
-        { id: 8, name: 'Dubai', country: 'UAE', costIndex: 4, popularity: 87, description: 'Luxury and innovation', image: 'https://picsum.photos/seed/dubai/800/600' },
-        { id: 9, name: 'Bali', country: 'Indonesia', costIndex: 2, popularity: 89, description: 'Tropical paradise', image: 'https://picsum.photos/seed/bali/800/600' },
-        { id: 10, name: 'Sydney', country: 'Australia', costIndex: 4, popularity: 86, description: 'Harbor city beauty', image: 'https://picsum.photos/seed/sydney/800/600' },
+        { id: 1, name: 'Paris', country: 'France', costIndex: 4, popularity: 95, description: 'The City of Light', image: 'https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 2, name: 'Tokyo', country: 'Japan', costIndex: 5, popularity: 90, description: 'Modern meets traditional', image: 'https://images.pexels.com/photos/2614818/pexels-photo-2614818.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 3, name: 'New York', country: 'USA', costIndex: 5, popularity: 92, description: 'The city that never sleeps', image: 'https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 4, name: 'Barcelona', country: 'Spain', costIndex: 3, popularity: 88, description: 'Gaudi\'s masterpiece city', image: 'https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 5, name: 'Bangkok', country: 'Thailand', costIndex: 2, popularity: 85, description: 'Street food paradise', image: 'https://images.pexels.com/photos/1031659/pexels-photo-1031659.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 6, name: 'London', country: 'UK', costIndex: 5, popularity: 93, description: 'Historic and modern blend', image: 'https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 7, name: 'Rome', country: 'Italy', costIndex: 4, popularity: 91, description: 'The Eternal City', image: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 8, name: 'Dubai', country: 'UAE', costIndex: 4, popularity: 87, description: 'Luxury and innovation', image: 'https://images.pexels.com/photos/1470502/pexels-photo-1470502.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 9, name: 'Bali', country: 'Indonesia', costIndex: 2, popularity: 89, description: 'Tropical paradise', image: 'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=800' },
+        { id: 10, name: 'Sydney', country: 'Australia', costIndex: 4, popularity: 86, description: 'Harbor city beauty', image: 'https://images.pexels.com/photos/995765/pexels-photo-995765.jpeg?auto=compress&cs=tinysrgb&w=800' },
       ];
       setCities(sampleCities);
       localStorage.setItem('cities', JSON.stringify(sampleCities));

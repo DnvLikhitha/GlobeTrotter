@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, MapPin, Calendar, TrendingUp, Sparkles } from 'lucide-react';
+import { Plus, MapPin, Calendar, TrendingUp, Sparkles, Search } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import Layout from '../components/Layout';
 
@@ -32,17 +32,52 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.name}! ✈️
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Ready to plan your next adventure?
-          </p>
+      {/* Video Background Hero Section */}
+      <div className="relative h-[500px] overflow-hidden">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/globetrotter.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        
+        {/* Hero Content */}
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+              Welcome back, {user?.name}! ✈️
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 mb-8 drop-shadow-md">
+              Ready to plan your next adventure?
+            </p>
+            
+            {/* Search Bar */}
+            <div className="bg-white/95 backdrop-blur-md rounded-full shadow-2xl p-2 flex items-center gap-3 max-w-lg">
+              <Search className="w-5 h-5 text-gray-400 ml-4" />
+              <input
+                type="text"
+                placeholder="Where do you want to go?"
+                className="flex-1 bg-transparent border-none outline-none text-gray-900 text-lg"
+              />
+              <Link
+                to="/trips/new"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-full font-semibold transition-colors whitespace-nowrap"
+              >
+                Plan Trip
+              </Link>
+            </div>
+          </div>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="card p-6">

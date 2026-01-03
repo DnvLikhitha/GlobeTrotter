@@ -103,14 +103,14 @@ const CitySearch = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredCities.map((city) => (
               <div key={city.id} className="card overflow-hidden group hover:shadow-xl transition-shadow">
-                <div className="h-48 relative overflow-hidden">
+                <div className="h-48 relative overflow-hidden bg-gray-200">
                   <img 
                     src={city.image} 
                     alt={city.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80';
+                      e.target.style.display = 'none';
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
