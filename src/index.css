@@ -5,6 +5,12 @@ body {
   color: #111827;
   margin: 0;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background-color: #111827;
+  color: #f9fafb;
 }
 
 .btn-primary {
@@ -20,6 +26,14 @@ body {
   background-color: #0f766e;
 }
 
+.dark .btn-primary {
+  background-color: #14b8a6;
+}
+
+.dark .btn-primary:hover {
+  background-color: #0d9488;
+}
+
 .btn-secondary {
   background-color: #e5e7eb;
   color: #1f2937;
@@ -33,6 +47,15 @@ body {
   background-color: #d1d5db;
 }
 
+.dark .btn-secondary {
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+.dark .btn-secondary:hover {
+  background-color: #4b5563;
+}
+
 .input-field {
   width: 100%;
   padding: 0.625rem 1rem;
@@ -42,11 +65,11 @@ body {
   transition: all 0.2s;
   font-size: 0.9375rem;
   line-height: 1.5;
+  background-color: white;
+  color: #111827;
 }
 
 .input-field:focus {
-  ring: 2px;
-  ring-color: #14b8a6;
   border-color: #14b8a6;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -55,6 +78,20 @@ body {
 .input-field::placeholder {
   color: #9ca3af;
   opacity: 1;
+}
+
+.dark .input-field {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.dark .input-field:focus {
+  border-color: #14b8a6;
+}
+
+.dark .input-field::placeholder {
+  color: #6b7280;
 }
 
 /* Input with icon on left */
@@ -66,13 +103,21 @@ body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 255, 0.9) 100%);
   border-radius: 0.75rem;
   box-shadow: 0 1px 3px 0 rgb(14 165 233 / 0.1);
-  transition: box-shadow 0.2s;
+  transition: all 0.3s;
   border: 1px solid rgba(186, 230, 253, 0.3);
 }
 
 .card:hover {
   box-shadow: 0 10px 15px -3px rgb(14 165 233 / 0.15);
-  group-hover:scale-110
-  transition-transform duration-300 ease-out
-
 }
+
+.dark .card {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+}
+
+.dark .card:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+

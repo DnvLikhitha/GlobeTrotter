@@ -44,10 +44,10 @@ const CalendarView = () => {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Calendar View
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             View all your trips in a calendar layout
           </p>
         </div>
@@ -70,29 +70,29 @@ const CalendarView = () => {
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={previousMonth}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
+              <ChevronLeft className="w-6 h-6 text-gray-600 dark:text-gray-400" />
             </button>
             
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               {format(currentDate, 'MMMM yyyy')}
             </h2>
 
             <button
               onClick={nextMonth}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
+              <ChevronRight className="w-6 h-6 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
 
           {/* Calendar Grid */}
-          <div className="bg-white rounded-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-lg">
             {/* Week Day Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {weekDays.map((day) => (
-                <div key={day} className="text-center font-semibold text-gray-600 text-sm py-2">
+                <div key={day} className="text-center font-semibold text-gray-600 dark:text-gray-400 text-sm py-2">
                   {day}
                 </div>
               ))}
@@ -102,7 +102,7 @@ const CalendarView = () => {
             <div className="grid grid-cols-7 gap-1">
               {calendarDays.map((day, index) => {
                 if (!day) {
-                  return <div key={`empty-${index}`} className="h-24 bg-gray-50"></div>;
+                  return <div key={`empty-${index}`} className="h-24 bg-gray-50 dark:bg-gray-700"></div>;
                 }
 
                 const tripsOnDay = getTripsForDate(day);
@@ -111,8 +111,8 @@ const CalendarView = () => {
                 return (
                   <div
                     key={day.toISOString()}
-                    className={`h-24 border border-gray-200 p-2 hover:bg-gray-50 transition-colors cursor-pointer ${
-                      !isSameMonth(day, currentDate) ? 'bg-gray-50' : 'bg-white'
+                    className={`h-24 border border-gray-200 dark:border-gray-600 p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+                      !isSameMonth(day, currentDate) ? 'bg-gray-50 dark:bg-gray-700' : 'bg-white dark:bg-gray-800'
                     } ${isToday ? 'ring-2 ring-teal-600' : ''}`}
                     onClick={() => {
                       if (tripsOnDay.length > 0) {
@@ -122,7 +122,7 @@ const CalendarView = () => {
                   >
                     <div className="flex flex-col h-full">
                       <div className={`text-sm font-medium mb-1 ${
-                        !isSameMonth(day, currentDate) ? 'text-gray-400' : 'text-gray-900'
+                        !isSameMonth(day, currentDate) ? 'text-gray-400' : 'text-gray-900 dark:text-gray-100'
                       }`}>
                         {format(day, 'd')}
                       </div>
@@ -138,7 +138,7 @@ const CalendarView = () => {
                             </div>
                           ))}
                           {tripsOnDay.length > 2 && (
-                            <div className="text-xs text-gray-500 font-medium">
+                            <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                               +{tripsOnDay.length - 2} more
                             </div>
                           )}
@@ -154,12 +154,12 @@ const CalendarView = () => {
           {/* Legend */}
           <div className="mt-6 flex gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-teal-100 rounded"></div>
-              <span className="text-gray-600">Trip Days</span>
+              <div className="w-4 h-4 bg-teal-100 dark:bg-teal-900 rounded"></div>
+              <span className="text-gray-600 dark:text-gray-400">Trip Days</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-teal-600 rounded"></div>
-              <span className="text-gray-600">Today</span>
+              <span className="text-gray-600 dark:text-gray-400">Today</span>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@ const CalendarView = () => {
         {/* Upcoming Trips List */}
         {trips.length > 0 && (
           <div className="card p-6 mt-8">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Upcoming Trips</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Upcoming Trips</h3>
             <div className="space-y-3">
               {trips.slice(0, 5).map((trip) => {
                 const city = trip.stops?.[0] ? cities.find(c => c.id === trip.stops[0].cityId) : null;
@@ -175,16 +175,16 @@ const CalendarView = () => {
                   <div
                     key={trip.id}
                     onClick={() => navigate(`/trips/${trip.id}`)}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer"
                   >
                     <div>
-                      <h4 className="font-semibold text-gray-900">{trip.name}</h4>
-                      <p className="text-sm text-gray-600">
+                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">{trip.name}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         {format(parseISO(trip.startDate), 'MMM d')} - {format(parseISO(trip.endDate), 'MMM d, yyyy')}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-500">{city?.name || 'Multiple Cities'}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{city?.name || 'Multiple Cities'}</p>
                       <p className="text-xs text-gray-400">{trip.stops?.length || 0} stops</p>
                     </div>
                   </div>

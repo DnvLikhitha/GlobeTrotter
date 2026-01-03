@@ -39,7 +39,7 @@ const Profile = () => {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Profile Settings</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Profile Settings</h1>
 
         {/* Profile Card */}
         <div className="card p-8 mb-8">
@@ -63,7 +63,7 @@ const Profile = () => {
               {isEditing ? (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Full Name
                     </label>
                     <input
@@ -74,7 +74,7 @@ const Profile = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Email
                     </label>
                     <input
@@ -85,7 +85,7 @@ const Profile = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Avatar URL
                     </label>
                     <input
@@ -118,8 +118,8 @@ const Profile = () => {
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{user?.name}</h2>
-                  <p className="text-gray-600 mb-4 flex items-center justify-center md:justify-start gap-2">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{user?.name}</h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 flex items-center justify-center md:justify-start gap-2">
                     <Mail className="w-4 h-4" />
                     {user?.email}
                   </p>
@@ -136,18 +136,18 @@ const Profile = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {stats.map((stat, index) => (
             <div key={index} className="card p-6 text-center">
-              <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{stat.label}</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</p>
             </div>
           ))}
         </div>
 
         {/* Preferences */}
         <div className="card p-6 mb-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Preferences</h3>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Preferences</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Language
               </label>
               <select className="input-field">
@@ -158,7 +158,7 @@ const Profile = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Currency
               </label>
               <select className="input-field">
@@ -172,9 +172,9 @@ const Profile = () => {
         </div>
 
         {/* Danger Zone */}
-        <div className="card p-6 border-2 border-red-200">
-          <h3 className="text-xl font-semibold text-red-600 mb-4">Danger Zone</h3>
-          <p className="text-gray-600 mb-4">
+        <div className="card p-6 border-2 border-red-200 dark:border-red-700">
+          <h3 className="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">Danger Zone</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             Once you delete your account, there is no going back. Please be certain.
           </p>
           <button

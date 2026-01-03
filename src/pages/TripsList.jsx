@@ -39,8 +39,8 @@ const TripsList = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">My Trips</h1>
-            <p className="text-gray-600">Manage all your travel plans in one place</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">My Trips</h1>
+            <p className="text-gray-600 dark:text-gray-400">Manage all your travel plans in one place</p>
           </div>
           <Link to="/trips/new" className="btn-primary flex items-center gap-2">
             <Plus className="w-5 h-5" />
@@ -57,7 +57,7 @@ const TripsList = () => {
               className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
                 filter === f
                   ? 'bg-primary-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
               }`}
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -86,28 +86,28 @@ const TripsList = () => {
 
                 <div className="p-6">
                   <Link to={`/trips/${trip.id}`}>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 hover:text-primary-600 transition-colors">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:text-primary-600 transition-colors">
                       {trip.name}
                     </h3>
                   </Link>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
                     {trip.description || 'No description'}
                   </p>
 
                   <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                       <Calendar className="w-4 h-4" />
                       <span>
                         {new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                       <MapPin className="w-4 h-4" />
                       <span>{trip.stops?.length || 0} stops</span>
                     </div>
                   </div>
 
-                  <div className="flex gap-2 pt-4 border-t border-gray-200">
+                  <div className="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-600">
                     <Link
                       to={`/trips/${trip.id}/edit`}
                       className="flex-1 btn-secondary flex items-center justify-center gap-2 text-sm"
@@ -129,12 +129,12 @@ const TripsList = () => {
         ) : (
           <div className="card p-12 text-center">
             <div className="flex justify-center mb-4">
-              <div className="bg-gray-100 p-6 rounded-full">
-                <MapPin className="w-16 h-16 text-gray-400" />
+              <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-full">
+                <MapPin className="w-16 h-16 text-gray-400 dark:text-gray-500" />
               </div>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No trips found</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">No trips found</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
               {filter === 'upcoming' 
                 ? "You don't have any upcoming trips yet."
                 : filter === 'past'

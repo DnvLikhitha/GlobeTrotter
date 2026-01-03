@@ -64,7 +64,7 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="Where do you want to go?"
-                className="flex-1 bg-transparent border-none outline-none text-gray-900 text-lg"
+                className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 text-lg"
               />
               <Link
                 to="/trips/new"
@@ -83,8 +83,8 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">Total Trips</p>
-                <p className="text-3xl font-bold text-gray-900">{userTrips.length}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Trips</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{userTrips.length}</p>
               </div>
               <div className="bg-blue-100 p-3 rounded-lg">
                 <MapPin className="w-6 h-6 text-blue-600" />
@@ -95,8 +95,8 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">Upcoming Trips</p>
-                <p className="text-3xl font-bold text-gray-900">{getUpcomingTrips().length}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Upcoming Trips</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{getUpcomingTrips().length}</p>
               </div>
               <div className="bg-green-100 p-3 rounded-lg">
                 <Calendar className="w-6 h-6 text-green-600" />
@@ -107,8 +107,8 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">Total Budget</p>
-                <p className="text-3xl font-bold text-gray-900">${getTotalBudget()}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Budget</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">${getTotalBudget()}</p>
               </div>
               <div className="bg-purple-100 p-3 rounded-lg">
                 <TrendingUp className="w-6 h-6 text-purple-600" />
@@ -119,8 +119,8 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">Cities Visited</p>
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-gray-600 dark:text-gray-400 text-sm">Cities Visited</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                   {new Set(userTrips.flatMap(t => t.stops?.map(s => s.cityId) || [])).size}
                 </p>
               </div>
@@ -135,7 +135,7 @@ const Dashboard = () => {
           {/* Recent Trips */}
           <div className="lg:col-span-2">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900">Upcoming Trips</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Upcoming Trips</h2>
               <Link to="/trips/new" className="btn-primary flex items-center gap-2">
                 <Plus className="w-5 h-5" />
                 <span className="hidden sm:inline">New Trip</span>
@@ -152,13 +152,13 @@ const Dashboard = () => {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                           {trip.name}
                         </h3>
-                        <p className="text-gray-600 mb-3 line-clamp-2">
+                        <p className="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                           {trip.description || 'No description'}
                         </p>
-                        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                        <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             <span>
@@ -185,14 +185,14 @@ const Dashboard = () => {
             ) : (
               <div className="card p-12 text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="bg-gray-100 p-4 rounded-full">
-                    <MapPin className="w-12 h-12 text-gray-400" />
+                  <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-full">
+                    <MapPin className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   No upcoming trips
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   Start planning your next adventure today!
                 </p>
                 <Link to="/trips/new" className="btn-primary inline-flex items-center gap-2">
@@ -214,7 +214,7 @@ const Dashboard = () => {
 
           {/* Popular Destinations */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Popular Destinations
             </h2>
             <div className="space-y-3">
@@ -222,15 +222,15 @@ const Dashboard = () => {
                 <div key={city.id} className="card p-4 hover:shadow-lg transition-shadow">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{city.name}</h3>
-                      <p className="text-sm text-gray-600">{city.country}</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">{city.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{city.country}</p>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center gap-1 text-yellow-500 text-sm">
                         <Sparkles className="w-4 h-4" />
                         <span>{city.popularity}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {'$'.repeat(city.costIndex)}
                       </p>
                     </div>

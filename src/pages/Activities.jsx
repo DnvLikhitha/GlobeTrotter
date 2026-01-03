@@ -32,10 +32,10 @@ const Activities = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Activity Search
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             Discover activities and experiences for your trip
           </p>
         </div>
@@ -45,11 +45,11 @@ const Activities = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Search */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Search Activities
               </label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -62,7 +62,7 @@ const Activities = () => {
 
             {/* City Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 City
               </label>
               <select
@@ -79,7 +79,7 @@ const Activities = () => {
 
             {/* Type Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Type
               </label>
               <select
@@ -97,7 +97,7 @@ const Activities = () => {
 
           {/* Sort By */}
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700">Sort By:</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Sort By:</span>
             <div className="flex gap-2">
               {['name', 'cost', 'duration'].map(option => (
                 <button
@@ -106,7 +106,7 @@ const Activities = () => {
                   className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                     sortBy === option
                       ? 'bg-teal-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -118,7 +118,7 @@ const Activities = () => {
 
         {/* Results Count */}
         <div className="mb-4">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Showing <span className="font-semibold">{filteredActivities.length}</span> activities
           </p>
         </div>
@@ -138,24 +138,24 @@ const Activities = () => {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{activity.name}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{activity.name}</h3>
                     
-                    <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
                       <MapPin className="w-4 h-4" />
                       <span>{city?.name}, {city?.country}</span>
                     </div>
 
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
                       {activity.description}
                     </p>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-600">
                       <div className="flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-1 text-gray-600">
+                        <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                           <Clock className="w-4 h-4" />
                           <span>{activity.duration}h</span>
                         </div>
-                        <div className="flex items-center gap-1 text-gray-600">
+                        <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
                           <DollarSign className="w-4 h-4" />
                           <span>${activity.cost}</span>
                         </div>
@@ -171,18 +171,18 @@ const Activities = () => {
           </div>
         ) : (
           <div className="card p-12 text-center">
-            <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No activities found</h3>
-            <p className="text-gray-600">Try adjusting your search or filters</p>
+            <Search className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">No activities found</h3>
+            <p className="text-gray-600 dark:text-gray-400">Try adjusting your search or filters</p>
           </div>
         )}
 
         {/* Info Section */}
-        <div className="card p-6 mt-8 bg-teal-50 border-l-4 border-teal-600">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <div className="card p-6 mt-8 bg-teal-50 dark:bg-teal-900/30 border-l-4 border-teal-600">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
             Options and Tips
           </h3>
-          <div className="space-y-2 text-gray-700">
+          <div className="space-y-2 text-gray-700 dark:text-gray-300">
             <p>• Browse activities by city, type, cost, and duration</p>
             <p>• Each activity shows detailed information including estimated time and cost</p>
             <p>• Add activities directly to your trip itinerary</p>

@@ -117,7 +117,7 @@ const TripDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => navigate('/trips')}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-6"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Trips
@@ -153,8 +153,8 @@ const TripDetail = () => {
             </div>
           ) : (
             <div className="p-6">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{trip.name}</h1>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">{trip.name}</h1>
+              <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {format(new Date(trip.startDate), 'MMM d')} - {format(new Date(trip.endDate), 'MMM d, yyyy')}
@@ -172,7 +172,7 @@ const TripDetail = () => {
           )}
 
           {/* Action Buttons */}
-          <div className="p-6 border-t border-gray-200 flex flex-wrap gap-3">
+          <div className="p-6 border-t border-gray-200 dark:border-gray-600 flex flex-wrap gap-3">
             <Link
               to={`/trips/${tripId}/edit`}
               className="btn-primary flex items-center gap-2"
@@ -199,29 +199,29 @@ const TripDetail = () => {
 
         {trip.description && (
           <div className="card p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">About This Trip</h2>
-            <p className="text-gray-600">{trip.description}</p>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">About This Trip</h2>
+            <p className="text-gray-600 dark:text-gray-400">{trip.description}</p>
           </div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {/* Stats */}
           <div className="card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Trip Summary</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Trip Summary</h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Total Budget</span>
+                <span className="text-gray-600 dark:text-gray-400">Total Budget</span>
                 <span className="text-xl font-bold text-primary-600">${getTotalCost()}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Avg per Day</span>
-                <span className="font-semibold text-gray-900">
+                <span className="text-gray-600 dark:text-gray-400">Avg per Day</span>
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   ${getTripDuration() > 0 ? Math.round(getTotalCost() / getTripDuration()) : 0}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Total Activities</span>
-                <span className="font-semibold text-gray-900">
+                <span className="text-gray-600 dark:text-gray-400">Total Activities</span>
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {trip.stops?.reduce((sum, stop) => sum + (stop.activities?.length || 0), 0) || 0}
                 </span>
               </div>
@@ -230,19 +230,19 @@ const TripDetail = () => {
 
           {/* Activity Types */}
           <div className="card p-6 lg:col-span-2">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity Breakdown</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Activity Breakdown</h3>
             {getActivityBreakdown().length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {getActivityBreakdown().map(({ type, count, cost }) => (
-                  <div key={type} className="bg-gray-50 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600">{type}</p>
-                    <p className="text-2xl font-bold text-gray-900">{count}</p>
-                    <p className="text-xs text-gray-500">${cost} total</p>
+                  <div key={type} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{type}</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{count}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">${cost} total</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500">No activities added yet</p>
+              <p className="text-gray-500 dark:text-gray-400">No activities added yet</p>
             )}
           </div>
         </div>
@@ -250,14 +250,14 @@ const TripDetail = () => {
         {/* Itinerary */}
         <div className="card p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Detailed Itinerary</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Detailed Itinerary</h2>
             <div className="flex gap-2">
               <button
                 onClick={() => setViewMode('timeline')}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   viewMode === 'timeline'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Timeline
@@ -267,7 +267,7 @@ const TripDetail = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   viewMode === 'calendar'
                     ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 By City
@@ -283,16 +283,16 @@ const TripDetail = () => {
                 const stopDuration = stop.activities?.reduce((sum, act) => sum + (act.duration || 0), 0) || 0;
 
                 return (
-                  <div key={stop.id} className="relative pl-8 pb-8 border-l-2 border-gray-200 last:border-0">
+                  <div key={stop.id} className="relative pl-8 pb-8 border-l-2 border-gray-200 dark:border-gray-600 last:border-0">
                     <div className="absolute left-0 top-0 -ml-3 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-bold">
                       {index + 1}
                     </div>
                     
-                    <div className="bg-gray-50 rounded-lg p-6">
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <h3 className="text-xl font-bold text-gray-900">{city?.name}, {city?.country}</h3>
-                          <div className="flex flex-wrap gap-3 mt-2 text-sm text-gray-600">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{city?.name}, {city?.country}</h3>
+                          <div className="flex flex-wrap gap-3 mt-2 text-sm text-gray-600 dark:text-gray-400">
                             <span className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {format(new Date(stop.startDate), 'MMM d')} - {format(new Date(stop.endDate), 'MMM d')}
@@ -310,32 +310,32 @@ const TripDetail = () => {
                       </div>
 
                       {stop.notes && (
-                        <p className="text-gray-600 mb-4 italic">{stop.notes}</p>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4 italic">{stop.notes}</p>
                       )}
 
                       {stop.activities && stop.activities.length > 0 && (
                         <div>
-                          <h4 className="font-semibold text-gray-900 mb-3">Activities</h4>
+                          <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Activities</h4>
                           <div className="space-y-2">
                             {stop.activities.map((activity) => (
                               <div
                                 key={activity.id}
-                                className="bg-white p-4 rounded-lg flex justify-between items-start"
+                                className="bg-white dark:bg-gray-800 p-4 rounded-lg flex justify-between items-start"
                               >
                                 <div className="flex-1">
-                                  <h5 className="font-medium text-gray-900">{activity.name}</h5>
+                                  <h5 className="font-medium text-gray-900 dark:text-gray-100">{activity.name}</h5>
                                   {activity.description && (
-                                    <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{activity.description}</p>
                                   )}
                                   <div className="flex gap-3 mt-2">
-                                    <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded">
                                       {activity.type}
                                     </span>
-                                    <span className="text-xs text-gray-500 flex items-center gap-1">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                                       <Clock className="w-3 h-3" />
                                       {activity.duration}h
                                     </span>
-                                    <span className="text-xs text-gray-500 flex items-center gap-1">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                                       <DollarSign className="w-3 h-3" />
                                       ${activity.cost}
                                     </span>
@@ -353,9 +353,9 @@ const TripDetail = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No stops added yet</h3>
-              <p className="text-gray-600 mb-6">Start building your itinerary</p>
+              <MapPin className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">No stops added yet</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">Start building your itinerary</p>
               <Link
                 to={`/trips/${tripId}/edit`}
                 className="btn-primary inline-flex items-center gap-2"

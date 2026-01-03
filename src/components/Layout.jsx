@@ -39,7 +39,11 @@ const Layout = ({ children }) => {
   const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 animate-gradient-shift">
+    <div className={`min-h-screen animate-gradient-shift transition-colors duration-300 ${
+      isDark 
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-slate-900' 
+        : 'bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50'
+    }`}>
       <style jsx="true">{`
         @keyframes gradient-shift {
           0%, 100% { background-position: 0% 50%; }
@@ -73,7 +77,11 @@ const Layout = ({ children }) => {
       `}</style>
       
       {/* Header */}
-      <header className={`bg-gradient-to-r from-blue-100/60 via-cyan-100/50 to-teal-100/60 backdrop-blur-md border-b border-cyan-200/40 sticky top-0 z-50 transition-all duration-300 ${
+      <header className={`backdrop-blur-md border-b sticky top-0 z-50 transition-all duration-300 ${
+        isDark
+          ? 'bg-gradient-to-r from-gray-800/60 via-gray-700/50 to-slate-800/60 border-gray-700/40'
+          : 'bg-gradient-to-r from-blue-100/60 via-cyan-100/50 to-teal-100/60 border-cyan-200/40'
+      } ${
         isScrolled ? 'shadow-lg' : 'shadow-sm'
       }`}>
         <div className="max-w-[1400px] mx-auto px-6">
@@ -99,8 +107,8 @@ const Layout = ({ children }) => {
                     style={{ animationDelay: `${index * 0.1}s` }}
                     className={`flex items-center gap-1.5 px-2 py-1 transition-all duration-300 relative group whitespace-nowrap animate-slide-down ${
                       active
-                        ? 'text-gray-900 font-medium'
-                        : 'text-gray-600 hover:text-gray-900'
+                        ? isDark ? 'text-white font-medium' : 'text-gray-900 font-medium'
+                        : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     <Icon className={`w-4 h-4 transition-all duration-300 flex-shrink-0 ${
@@ -127,7 +135,9 @@ const Layout = ({ children }) => {
                   className={`hidden md:flex p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                     isListening 
                       ? 'bg-red-100 text-red-600 animate-pulse' 
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : isDark 
+                        ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                   title={isListening ? 'Stop Listening' : 'Voice Commands'}
                 >
@@ -138,23 +148,39 @@ const Layout = ({ children }) => {
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
-                className="hidden md:flex p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-all duration-300 hover:scale-110 hover:rotate-12"
+                className={`hidden md:flex p-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-12 ${
+                  isDark 
+                    ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+                }`}
                 title={isDark ? 'Light Mode' : 'Dark Mode'}
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
 
-              <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50/80 to-cyan-50/80 border border-cyan-200/60 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-cyan-300">
+              <div className={`hidden md:flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300 hover:shadow-lg hover:scale-105 ${
+                isDark
+                  ? 'bg-gradient-to-r from-gray-700/80 to-gray-600/80 border-gray-600/60 hover:border-gray-500'
+                  : 'bg-gradient-to-r from-blue-50/80 to-cyan-50/80 border-cyan-200/60 hover:border-cyan-300'
+              }`}>
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white font-semibold text-sm uppercase shadow-md transition-transform duration-300 hover:rotate-12">
                   {user?.name?.charAt(0)}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-900 capitalize">{user?.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                  <p className={`text-sm font-medium capitalize ${
+                    isDark ? 'text-gray-100' : 'text-gray-900'
+                  }`}>{user?.name}</p>
+                  <p className={`text-xs truncate ${
+                    isDark ? 'text-gray-400' : 'text-gray-500'
+                  }`}>{user?.email}</p>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="ml-2 p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-12"
+                  className={`ml-2 p-1.5 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-12 hover:text-red-600 ${
+                    isDark 
+                      ? 'text-gray-400 hover:bg-red-900/30' 
+                      : 'text-gray-500 hover:bg-red-50'
+                  }`}
                   title="Logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -164,7 +190,11 @@ const Layout = ({ children }) => {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gradient-to-br hover:from-blue-100 hover:to-cyan-100 rounded-lg transition-all duration-300 hover:scale-110"
+                className={`lg:hidden p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                  isDark
+                    ? 'text-gray-300 hover:text-white hover:bg-gradient-to-br hover:from-gray-700 hover:to-gray-600'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gradient-to-br hover:from-blue-100 hover:to-cyan-100'
+                }`}
               >
                 {isMobileMenuOpen ? (
                   <X className="w-6 h-6 animate-spin" style={{ animationDuration: '0.3s', animationIterationCount: '1' }} />
@@ -178,16 +208,26 @@ const Layout = ({ children }) => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-lg animate-slide-down">
+          <div className={`md:hidden border-t backdrop-blur-lg animate-slide-down ${
+            isDark
+              ? 'border-gray-700 bg-gray-800/95'
+              : 'border-gray-200 bg-white/95'
+          }`}>
             <div className="px-4 py-4 space-y-2">
               {/* User Info */}
-              <div className="flex items-center gap-3 pb-4 border-b border-gray-200 mb-2 animate-slide-down">
+              <div className={`flex items-center gap-3 pb-4 border-b mb-2 animate-slide-down ${
+                isDark ? 'border-gray-700' : 'border-gray-200'
+              }`}>
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg uppercase shadow-lg">
                   {user?.name?.charAt(0)}
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{user?.name}</p>
-                  <p className="text-sm text-gray-500">{user?.email}</p>
+                  <p className={`font-medium ${
+                    isDark ? 'text-gray-100' : 'text-gray-900'
+                  }`}>{user?.name}</p>
+                  <p className={`text-sm ${
+                    isDark ? 'text-gray-400' : 'text-gray-500'
+                  }`}>{user?.email}</p>
                 </div>
               </div>
 
@@ -202,8 +242,12 @@ const Layout = ({ children }) => {
                     style={{ animationDelay: `${index * 0.05}s` }}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 animate-slide-down ${
                       isActive(item.path)
-                        ? 'bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-600 font-medium shadow-sm scale-105'
-                        : 'text-gray-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 hover:scale-105'
+                        ? isDark
+                          ? 'bg-gradient-to-r from-gray-700 to-gray-600 text-cyan-400 font-medium shadow-sm scale-105'
+                          : 'bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-600 font-medium shadow-sm scale-105'
+                        : isDark
+                          ? 'text-gray-300 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-600 hover:scale-105'
+                          : 'text-gray-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 hover:scale-105'
                     }`}
                   >
                     <Icon className={`w-5 h-5 transition-transform duration-300 ${
@@ -215,11 +259,17 @@ const Layout = ({ children }) => {
               })}
 
               {/* Mobile Dark Mode & Voice Commands */}
-              <div className="flex gap-2 pt-2 border-t border-gray-200">
+              <div className={`flex gap-2 pt-2 border-t ${
+                isDark ? 'border-gray-700' : 'border-gray-200'
+              }`}>
                 {/* Dark Mode Toggle */}
                 <button
                   onClick={toggleTheme}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:scale-105"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 flex-1 hover:scale-105 ${
+                    isDark
+                      ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
+                      : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
+                  }`}
                 >
                   {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                   <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
@@ -232,7 +282,9 @@ const Layout = ({ children }) => {
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 flex-1 hover:scale-105 ${
                       isListening 
                         ? 'bg-red-50 text-red-600' 
-                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                        : isDark
+                          ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -247,7 +299,11 @@ const Layout = ({ children }) => {
                   handleLogout();
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 rounded-lg transition-all duration-300 w-full hover:scale-105 animate-slide-down"
+                className={`flex items-center gap-3 px-4 py-3 text-red-600 rounded-lg transition-all duration-300 w-full hover:scale-105 animate-slide-down ${
+                  isDark
+                    ? 'hover:bg-gradient-to-r hover:from-red-900/30 hover:to-red-800/30'
+                    : 'hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50'
+                }`}
                 style={{ animationDelay: `${navItems.length * 0.05}s` }}
               >
                 <LogOut className="w-5 h-5" />
@@ -262,9 +318,15 @@ const Layout = ({ children }) => {
       <main className="min-h-[calc(100vh-4rem)] animate-slide-down">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-white via-blue-50/30 to-white border-t border-gray-200 mt-12">
+      <footer className={`bg-gradient-to-r border-t mt-12 transition-colors duration-300 ${
+        isDark
+          ? 'from-gray-900 via-gray-800/30 to-gray-900 border-gray-700'
+          : 'from-white via-blue-50/30 to-white border-gray-200'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center text-gray-600 text-sm">
+          <div className={`text-center text-sm ${
+            isDark ? 'text-gray-400' : 'text-gray-600'
+          }`}>
             <p className="inline-block hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 transition-all duration-300">
               &copy; 2026 GlobeTrotter. Empowering Personalized Travel Planning.
             </p>

@@ -29,10 +29,10 @@ const CitySearch = () => {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Explore Cities
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
             Discover amazing destinations for your next adventure
           </p>
         </div>
@@ -41,11 +41,11 @@ const CitySearch = () => {
         <div className="card p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Search Cities
               </label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -57,7 +57,7 @@ const CitySearch = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Filter by Country
               </label>
               <select
@@ -74,7 +74,7 @@ const CitySearch = () => {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="text-sm font-semibold text-gray-900">Sort by:</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">Sort by:</span>
             {['popularity', 'cost', 'name'].map(option => (
               <button
                 key={option}
@@ -82,7 +82,7 @@ const CitySearch = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                   sortBy === option
                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-gray-200'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 border-2 border-gray-200 dark:border-gray-600'
                 }`}
               >
                 {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -93,7 +93,7 @@ const CitySearch = () => {
 
         {/* Results Count */}
         <div className="mb-4">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Showing <span className="font-semibold">{filteredCities.length}</span> cities
           </p>
         </div>
@@ -125,7 +125,7 @@ const CitySearch = () => {
                 <div className="p-6">
                   <h3
   className="
-    text-xl font-bold text-gray-900 mb-1
+    text-xl font-bold text-gray-900 dark:text-gray-100 mb-1
     transition-transform duration-300 ease-out
     hover:scale-110
     cursor-pointer
@@ -134,15 +134,15 @@ const CitySearch = () => {
   {city.name}
 </h3>
 
-                  <p className="text-sm text-gray-600 mb-3">{city.country}</p>
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{city.country}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                     {city.description}
                   </p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-600">
                     <div>
-                      <p className="text-xs text-gray-500 mb-1">Cost Level</p>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Cost Level</p>
+                      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                         {'$'.repeat(city.costIndex)}
                       </p>
                     </div>
@@ -156,18 +156,9 @@ const CitySearch = () => {
           </div>
         ) : (
           <div className="card p-12 text-center">
-            <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3
-                className="
-                  text-xl font-bold text-gray-900 mb-1
-                  transition-transform duration-300 ease-out
-                  group-hover:scale-110
-                "
-              >
-                {city.name}
-              </h3>
-
-            <p className="text-gray-600">Try adjusting your search or filters</p>
+            <Search className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">No cities found</h3>
+            <p className="text-gray-600 dark:text-gray-400">Try adjusting your search or filters</p>
           </div>
         )}
       </div>
