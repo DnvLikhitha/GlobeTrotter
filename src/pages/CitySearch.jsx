@@ -123,17 +123,7 @@ const CitySearch = () => {
                 </div>
 
                 <div className="p-6">
-                  <h3
-  className="
-    text-xl font-bold text-gray-900 dark:text-gray-100 mb-1
-    transition-transform duration-300 ease-out
-    hover:scale-110
-    cursor-pointer
-  "
->
-  {city.name}
-</h3>
-
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{city.name}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{city.country}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                     {city.description}
