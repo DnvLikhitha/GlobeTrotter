@@ -16,6 +16,7 @@ export const AppProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [activities, setActivities] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -74,6 +75,8 @@ export const AppProvider = ({ children }) => {
       setActivities(sampleActivities);
       localStorage.setItem('activities', JSON.stringify(sampleActivities));
     }
+    
+    setLoading(false);
   }, []);
 
   // Save data to localStorage when it changes
@@ -307,6 +310,7 @@ export const AppProvider = ({ children }) => {
     user,
     setUser,
     isAuthenticated,
+    loading,
     login,
     signup,
     logout,

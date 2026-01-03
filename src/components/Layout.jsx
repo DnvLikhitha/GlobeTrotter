@@ -68,17 +68,17 @@ const Layout = ({ children }) => {
 
             {/* User Profile & Logout */}
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-gray-50 border border-gray-200">
-                <div className="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center text-white font-semibold text-sm">
-                  {user?.name?.charAt(0).toUpperCase()}
+              <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50/80 to-cyan-50/80 border border-cyan-200/60">
+                <div className="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center text-white font-semibold text-sm uppercase">
+                  {user?.name?.charAt(0)}
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                  <p className="text-xs text-gray-500">{user?.email}</p>
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-gray-900 capitalize">{user?.name}</p>
+                  <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="ml-2 p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="ml-2 p-1.5 text-gray-500 hover:text-gray-700 hover:bg-white/50 rounded-lg transition-colors"
                   title="Logout"
                 >
                   <LogOut className="w-4 h-4" />
