@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
@@ -30,8 +31,9 @@ if ('serviceWorker' in navigator) {
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
+    <ThemeProvider>
+      <AppProvider>
+        <Router>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Login />} />
@@ -119,8 +121,9 @@ function App() {
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </Router>
-    </AppProvider>
+        </Router>
+      </AppProvider>
+    </ThemeProvider>
   );
 }
 

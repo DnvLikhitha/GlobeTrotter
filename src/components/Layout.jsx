@@ -2,13 +2,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Map, Search, User, LogOut, Menu, X, Calendar, Activity, Users, Moon, Sun, Mic, MicOff } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useTheme } from '../context/ThemeContext';
 import { useVoiceCommands } from '../services/voiceCommands';
 
 const Layout = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const { user, logout } = useApp();
+  const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const { isListening, isSupported, toggleListening } = useVoiceCommands();
@@ -20,26 +21,6 @@ const Layout = ({ children }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
 
   const handleLogout = () => {
     logout();
@@ -156,11 +137,11 @@ const Layout = ({ children }) => {
 
               {/* Dark Mode Toggle */}
               <button
-                onClick={toggleDarkMode}
+                onClick={toggleTheme}
                 className="hidden md:flex p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-all duration-300 hover:scale-110 hover:rotate-12"
-                title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                title={isDark ? 'Light Mode' : 'Dark Mode'}
               >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
 
               <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50/80 to-cyan-50/80 border border-cyan-200/60 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-cyan-300">
@@ -232,6 +213,33 @@ const Layout = ({ children }) => {
                   </Link>
                 );
               })}
+
+              {/* Mobile Dark Mode & Voice Commands */}
+              <div className="flex gap-2 pt-2 border-t border-gray-200">
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:scale-105"
+                >
+                  {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                  <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+
+                {/* Voice Commands */}
+                {isSupported && (
+                  <button
+                    onClick={toggleListening}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 flex-1 hover:scale-105 ${
+                      isListening 
+                        ? 'bg-red-50 text-red-600' 
+                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                    <span>{isListening ? 'Stop' : 'Voice'}</span>
+                  </button>
+                )}
+              </div>
 
               {/* Logout */}
               <button
