@@ -72,4 +72,7 @@ body {
 
 .card:hover {
   box-shadow: 0 10px 15px -3px rgb(14 165 233 / 0.15);
+  group-hover:scale-110
+  transition-transform duration-300 ease-out
+
 }

@@ -147,7 +147,16 @@ const CitySearch = () => {
         ) : (
           <div className="card p-12 text-center">
             <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No cities found</h3>
+            <h3
+                className="
+                  text-xl font-bold text-gray-900 mb-1
+                  transition-transform duration-300 ease-out
+                  group-hover:scale-110
+                "
+              >
+                {city.name}
+              </h3>
+
             <p className="text-gray-600">Try adjusting your search or filters</p>
           </div>
         )}
