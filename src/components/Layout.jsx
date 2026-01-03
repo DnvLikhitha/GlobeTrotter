@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex items-center gap-2 px-1 py-1 transition-all relative group ${
+                    className={`flex items-center gap-2 px-1 py-1 transition-all relative group whitespace-nowrap ${
                       active
                         ? 'text-gray-900 font-medium'
                         : 'text-gray-600 hover:text-gray-900'
