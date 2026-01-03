@@ -1,0 +1,222 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Plus, MapPin, Calendar, TrendingUp, Sparkles } from 'lucide-react';
+import { useApp } from '../context/AppContext';
+import Layout from '../components/Layout';
+
+const Dashboard = () => {
+  const { user, getUserTrips, cities } = useApp();
+  const [userTrips, setUserTrips] = useState([]);
+  const [popularCities, setPopularCities] = useState([]);
+
+  useEffect(() => {
+    setUserTrips(getUserTrips());
+    setPopularCities(cities.sort((a, b) => b.popularity - a.popularity).slice(0, 6));
+  }, []);
+
+  const getUpcomingTrips = () => {
+    return userTrips.filter(trip => new Date(trip.startDate) >= new Date())
+      .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+      .slice(0, 3);
+  };
+
+  const getTotalBudget = () => {
+    return userTrips.reduce((total, trip) => {
+      const tripBudget = trip.stops?.reduce((stopTotal, stop) => {
+        const activityCost = stop.activities?.reduce((actTotal, act) => actTotal + (act.cost || 0), 0) || 0;
+        return stopTotal + activityCost;
+      }, 0) || 0;
+      return total + tripBudget;
+    }, 0);
+  };
+
+  return (
+    <Layout>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            Welcome back, {user?.name}! ✈️
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Ready to plan your next adventure?
+          </p>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="card p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm">Total Trips</p>
+                <p className="text-3xl font-bold text-gray-900">{userTrips.length}</p>
+              </div>
+              <div className="bg-blue-100 p-3 rounded-lg">
+                <MapPin className="w-6 h-6 text-blue-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="card p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm">Upcoming Trips</p>
+                <p className="text-3xl font-bold text-gray-900">{getUpcomingTrips().length}</p>
+              </div>
+              <div className="bg-green-100 p-3 rounded-lg">
+                <Calendar className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="card p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm">Total Budget</p>
+                <p className="text-3xl font-bold text-gray-900">${getTotalBudget()}</p>
+              </div>
+              <div className="bg-purple-100 p-3 rounded-lg">
+                <TrendingUp className="w-6 h-6 text-purple-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="card p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm">Cities Visited</p>
+                <p className="text-3xl font-bold text-gray-900">
+                  {new Set(userTrips.flatMap(t => t.stops?.map(s => s.cityId) || [])).size}
+                </p>
+              </div>
+              <div className="bg-yellow-100 p-3 rounded-lg">
+                <Sparkles className="w-6 h-6 text-yellow-600" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Recent Trips */}
+          <div className="lg:col-span-2">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">Upcoming Trips</h2>
+              <Link to="/trips/new" className="btn-primary flex items-center gap-2">
+                <Plus className="w-5 h-5" />
+                <span className="hidden sm:inline">New Trip</span>
+              </Link>
+            </div>
+
+            {getUpcomingTrips().length > 0 ? (
+              <div className="space-y-4">
+                {getUpcomingTrips().map((trip) => (
+                  <Link
+                    key={trip.id}
+                    to={`/trips/${trip.id}`}
+                    className="card p-6 block hover:shadow-xl transition-shadow"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          {trip.name}
+                        </h3>
+                        <p className="text-gray-600 mb-3 line-clamp-2">
+                          {trip.description || 'No description'}
+                        </p>
+                        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            <span>
+                              {new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            <span>{trip.stops?.length || 0} stops</span>
+                          </div>
+                        </div>
+                      </div>
+                      {trip.coverPhoto && (
+                        <img
+                          src={trip.coverPhoto}
+                          alt={trip.name}
+                          className="w-24 h-24 rounded-lg object-cover ml-4"
+                        />
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="card p-12 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-gray-100 p-4 rounded-full">
+                    <MapPin className="w-12 h-12 text-gray-400" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No upcoming trips
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Start planning your next adventure today!
+                </p>
+                <Link to="/trips/new" className="btn-primary inline-flex items-center gap-2">
+                  <Plus className="w-5 h-5" />
+                  Plan Your First Trip
+                </Link>
+              </div>
+            )}
+
+            <div className="mt-6">
+              <Link
+                to="/trips"
+                className="text-primary-600 hover:text-primary-700 font-medium"
+              >
+                View all trips →
+              </Link>
+            </div>
+          </div>
+
+          {/* Popular Destinations */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Popular Destinations
+            </h2>
+            <div className="space-y-3">
+              {popularCities.map((city) => (
+                <div key={city.id} className="card p-4 hover:shadow-lg transition-shadow">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900">{city.name}</h3>
+                      <p className="text-sm text-gray-600">{city.country}</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="flex items-center gap-1 text-yellow-500 text-sm">
+                        <Sparkles className="w-4 h-4" />
+                        <span>{city.popularity}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {'$'.repeat(city.costIndex)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6">
+              <Link
+                to="/cities"
+                className="text-primary-600 hover:text-primary-700 font-medium"
+              >
+                Explore more cities →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Dashboard;

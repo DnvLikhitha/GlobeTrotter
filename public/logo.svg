@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+  <defs>
+    <style>
+      .cls-1 { fill: #1e293b; }
+      .cls-2 { fill: #2d5533; font-family: Georgia, 'Times New Roman', serif; font-size: 48px; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <!-- Crescent Moon Shape -->
+  <path class="cls-1" d="M 380,150 C 380,95 345,50 300,50 C 290,50 280,52 270,56 C 285,70 295,90 295,115 C 295,165 260,205 215,210 C 195,212 176,208 160,198 C 160,250 200,295 250,295 C 255,295 260,294 265,293 L 265,305 L 120,305 L 120,310 L 385,310 L 385,305 L 270,305 C 330,295 375,240 380,175 Z"/>
+  
+  <!-- Mountain Peaks -->
+  <g class="cls-1">
+    <path d="M 260,240 L 285,185 L 310,240 Z"/>
+    <path d="M 290,240 L 310,205 L 330,240 Z"/>
+    <path d="M 320,240 L 338,210 L 356,240 Z"/>
+    <!-- Snow caps -->
+    <path d="M 295,210 L 300,200 L 305,210 Z M 315,220 L 320,210 L 325,220 Z M 335,225 L 340,215 L 345,225 Z" fill="#ffffff" opacity="0.8"/>
+  </g>
+  
+  <!-- Hiker with Backpack and Stick -->
+  <g class="cls-1">
+    <!-- Head -->
+    <circle cx="178" cy="168" r="8"/>
+    <!-- Backpack -->
+    <path d="M 172,175 L 168,185 L 168,200 L 175,202 L 182,200 L 182,185 L 178,175 Z"/>
+    <!-- Body leaning forward -->
+    <path d="M 178,175 L 172,210 L 170,230 L 175,245 L 180,260 L 182,275 L 185,290 L 188,305 L 195,305 L 192,285 L 188,265 L 185,245 L 183,225 L 185,210 Z"/>
+    <!-- Back leg -->
+    <path d="M 175,245 L 173,260 L 170,280 L 168,300 L 165,305 L 172,305 L 175,295 L 178,275 L 180,260 Z"/>
+    <!-- Climbing stick -->
+    <path d="M 180,180 L 205,215 L 220,235 L 222,240 M 218,232 L 220,228 L 224,230"/>
+    <!-- Front arm holding stick -->
+    <path d="M 178,180 L 185,195 L 195,210 L 205,220"/>
+  </g>
+  
+  <!-- Text: GlobeTrotter -->
+  <text x="150" y="345" class="cls-2">GlobeTrotter</text>
+  
+  <!-- Underline -->
+  <line x1="115" y1="350" x2="385" y2="350" stroke="#2d5533" stroke-width="3"/>
+</svg>
